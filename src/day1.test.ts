@@ -1,5 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { getNumberForString, replaceSpelledDigits } from "./day1";
+import {
+  calculateCalibrationPart1,
+  calculateCalibrationPart2,
+  getNumberForString,
+  replaceSpelledDigits,
+} from "./day1";
+import { input } from "./day1Input";
 
 describe("Part 1", () => {
   it.each([
@@ -10,11 +16,16 @@ describe("Part 1", () => {
   ])("correct", ({ input, expectedNumber }) => {
     expect(getNumberForString(input)).toBe(expectedNumber);
   });
+
+  it("calculates the correct result", () => {
+    expect(calculateCalibrationPart1(input)).toBe(54561);
+  });
 });
 
 describe("Part 2", () => {
   it("replaces spelled digits correctly", () => {
-    expect(replaceSpelledDigits("abcone2threexyz")).toBe("abco1e2t3exyz");
+    expect(replaceSpelledDigits("abcone2threexyz")).toBe("abcon1e2thre3exyz");
+    expect(replaceSpelledDigits("oneighthreeight")).toBe("on1eigh8thre3eigh8t");
   });
 
   it.each([
@@ -25,10 +36,20 @@ describe("Part 2", () => {
     { input: "4nineeightseven2", expectedNumber: 42 },
     { input: "zoneight234", expectedNumber: 14 },
     { input: "7pqrstsixteen", expectedNumber: 76 },
+    { input: "nine", expectedNumber: 99 },
+    { input: "twone", expectedNumber: 21 },
+    { input: "eightwo", expectedNumber: 82 },
+    { input: "eighthree", expectedNumber: 83 },
+    { input: "oneight", expectedNumber: 18 },
+    { input: "nineight", expectedNumber: 98 },
+    { input: "oneighthreeight", expectedNumber: 18 },
+    { input: "oneighthreeighteighteightseven", expectedNumber: 17 },
   ])("correct", ({ input, expectedNumber }) => {
     const fixedInput = replaceSpelledDigits(input);
-    // expect(fixedInput).toBe(2);
-
     expect(getNumberForString(fixedInput)).toBe(expectedNumber);
+  });
+
+  it("calculates the correct result", () => {
+    expect(calculateCalibrationPart2(input)).toBe(54076);
   });
 });
