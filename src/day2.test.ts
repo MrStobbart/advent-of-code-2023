@@ -6,7 +6,9 @@ import {
   getMinimumNumberOfCubes,
   getNumberToAddForGame,
 } from "./day2";
-import { input } from "./day2Input";
+import { getInputForDay } from "./getInput";
+
+const input = await getInputForDay(2);
 
 describe("Part 1", () => {
   it.each([
@@ -103,6 +105,6 @@ describe("Part 2", () => {
   );
 
   it("calculates the correct result for part 2", () => {
-    expect(calculatePart2Result(input)).toBe(1);
+    expect(calculatePart2Result(input)).toBe(74229);
   });
 });

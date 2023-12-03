@@ -5,7 +5,8 @@ import {
   getNumberForString,
   replaceSpelledDigits,
 } from "./day1";
-import { input } from "./day1Input";
+import { getInputForDay } from "./getInput";
+const input = await getInputForDay(1);
 
 describe("Part 1", () => {
   it.each([

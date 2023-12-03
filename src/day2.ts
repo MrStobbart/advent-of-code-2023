@@ -42,11 +42,6 @@ export const addGameIds = (input: string) => {
 
   return inputArr.reduce((prev, curr) => {
     const numberToAdd = getNumberToAddForGame(curr);
-    if (numberToAdd > 0) {
-      console.log(numberToAdd, curr);
-    } else {
-      console.log("FALSE", curr);
-    }
     return prev + numberToAdd;
   }, 0);
 };
