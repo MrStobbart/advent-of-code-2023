@@ -47,15 +47,6 @@ export const getRelevantEngineNumbers = (input: string): number[] => {
         currentLineHasSpecialChars ||
         previousLineHasSpecialChars ||
         nextLineHasSpecialChars;
-      if (!hasSpecialChars) {
-        console.log({
-          number,
-          previousLine: previousSliced,
-          currentLinee: currentSliced,
-          nextLineeeee: nextSliced,
-          hasSpecialChars,
-        });
-      }
       return hasSpecialChars;
     });
 
