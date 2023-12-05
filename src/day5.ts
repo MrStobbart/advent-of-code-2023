@@ -50,7 +50,7 @@ const seedParserPart1 = (seedString: string): SeedRange[] =>
 export const parseAlmanac = (
   input: string,
   seedParser: (seeds: string) => SeedRange[] = seedParserPart1
-): Almanac | AlmanacWithSeedRange => {
+): Almanac => {
   const maps = input.split("\n\n");
   const seeds = seedParser(maps.shift()!);
 
