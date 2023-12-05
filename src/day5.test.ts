@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   getDestination,
   getLowestLocation,
-  parseAlamanc,
+  parseAlmanac,
   prepareMap,
   seedParserPart2,
 } from "./day5";
@@ -74,31 +74,35 @@ seed-to-soil map:
   });
 
   it("parses an alamanc correctly", () => {
-    expect(parseAlamanc(testInput)).toMatchSnapshot();
+    expect(parseAlmanac(testInput)).toMatchSnapshot();
   });
 
   it("gets the correct lowest location", () => {
-    const alamanc = parseAlamanc(testInput);
+    const alamanc = parseAlmanac(testInput);
     expect(getLowestLocation(alamanc)).toBe(35);
   });
 
   it("calculates the correct result", () => {
-    const alamanc = parseAlamanc(input);
+    const alamanc = parseAlmanac(input);
     expect(getLowestLocation(alamanc)).toBe(331445006);
   });
 });
 
-describe("Part 2", () => {
+describe.only("Part 2", () => {
   it("calculates the lowest location with seed ranges", () => {
-    const alamanc = parseAlamanc(testInput, seedParserPart2);
+    const almanac = parseAlmanac(testInput, seedParserPart2);
+    expect(getLowestLocation(almanac)).toBe(46);
+  });
+
+  it.only("calculates the correct result", () => {
+    const alamanc = parseAlmanac(input, seedParserPart2);
     expect(getLowestLocation(alamanc)).toBe(46);
   });
 
-  it("calculates the correct result", () => {
-    // const alamanc = parseAlamanc(input, seedParserPart2);
-    console.log(alamanc);
-
-    // expect(getLowestLocation(alamanc)).toBe(46);
-    expect(35).toBe(46);
+  it("calculates seed ranges correctly", () => {
+    expect(seedParserPart2("seeds: 79 1 55 2")).toEqual([
+      { start: 79, end: 79 },
+      { start: 55, end: 56 },
+    ]);
   });
 });

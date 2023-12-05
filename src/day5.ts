@@ -3,7 +3,8 @@ type PreparedMap = {
   ranges: { start: number; end: number; offset: number }[];
 };
 
-type Alamanc = { seeds: number[]; maps: PreparedMap[] };
+type SeedRange = { start: number; end: number };
+type Almanac = { seeds: SeedRange[]; maps: PreparedMap[] };
 
 export const prepareMap = (rawMap: string): PreparedMap => {
   const lines = rawMap.split("\n");
@@ -39,17 +40,17 @@ export const getDestination = (preparedMap: PreparedMap, source: number) => {
   return source + offset;
 };
 
-const seedParserPart1 = (seedString: string): number[] =>
+const seedParserPart1 = (seedString: string): SeedRange[] =>
   seedString
     .split(":")[1]
     ?.trim()
     .split(" ")
-    .map((seed) => parseInt(seed))!;
+    .map((seed) => ({ start: parseInt(seed), end: parseInt(seed) }))!;
 
-export const parseAlamanc = (
+export const parseAlmanac = (
   input: string,
-  seedParser: (seeds: string) => number[] = seedParserPart1
-): Alamanc => {
+  seedParser: (seeds: string) => SeedRange[] = seedParserPart1
+): Almanac | AlmanacWithSeedRange => {
   const maps = input.split("\n\n");
   const seeds = seedParser(maps.shift()!);
 
@@ -62,28 +63,29 @@ export const parseAlamanc = (
   };
 };
 
-export const getLowestLocation = ({ seeds, maps }: Alamanc): number => {
-  return Math.min(
-    ...seeds.map((seed) =>
-      maps.reduce((id, map) => getDestination(map, id), seed)
-    )
-  );
+export const getLowestLocation = ({ seeds, maps }: Almanac): number => {
+  const locations: number[] = [];
+  seeds.flatMap(({ start, end }) => {
+    for (let seed = start; seed <= end; seed++) {
+      locations.push(maps.reduce((id, map) => getDestination(map, id), seed));
+    }
+  });
+
+  return Math.min(...locations);
 };
 
-export const seedParserPart2 = (seedLine: string): number[] => {
+export const seedParserPart2 = (seedLine: string): SeedRange[] => {
   const seedRangeIds = seedLine
     ?.split(":")[1]
     ?.trim()
     .split(" ")
     .map((seed) => parseInt(seed))!;
 
-  const seeds = [];
+  const seeds: SeedRange[] = [];
   for (let i = 0; i < seedRangeIds.length; i = i + 2) {
     const start = seedRangeIds[i]!;
     const length = seedRangeIds[i + 1]!;
-    for (let seed = start; seed < start + length; seed++) {
-      seeds.push(seed);
-    }
+    seeds.push({ start, end: start + length - 1 });
   }
   return seeds;
 };

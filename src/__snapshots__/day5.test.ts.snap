@@ -130,10 +130,22 @@ exports[`Part 1 parses an alamanc correctly 1`] = `
     },
   ],
   "seeds": [
-    79,
-    14,
-    55,
-    13,
+    {
+      "end": 79,
+      "start": 79,
+    },
+    {
+      "end": 14,
+      "start": 14,
+    },
+    {
+      "end": 55,
+      "start": 55,
+    },
+    {
+      "end": 13,
+      "start": 13,
+    },
   ],
 }
 `;
