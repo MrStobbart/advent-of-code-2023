@@ -1,0 +1,139 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Part 1 parses an alamanc correctly 1`] = `
+{
+  "maps": [
+    {
+      "name": "seed-to-soil",
+      "ranges": [
+        {
+          "end": 99,
+          "offset": -48,
+          "start": 98,
+        },
+        {
+          "end": 97,
+          "offset": 2,
+          "start": 50,
+        },
+      ],
+    },
+    {
+      "name": "soil-to-fertilizer",
+      "ranges": [
+        {
+          "end": 51,
+          "offset": -15,
+          "start": 15,
+        },
+        {
+          "end": 53,
+          "offset": -15,
+          "start": 52,
+        },
+        {
+          "end": 14,
+          "offset": 39,
+          "start": 0,
+        },
+      ],
+    },
+    {
+      "name": "fertilizer-to-water",
+      "ranges": [
+        {
+          "end": 60,
+          "offset": -4,
+          "start": 53,
+        },
+        {
+          "end": 52,
+          "offset": -11,
+          "start": 11,
+        },
+        {
+          "end": 6,
+          "offset": 42,
+          "start": 0,
+        },
+        {
+          "end": 10,
+          "offset": 50,
+          "start": 7,
+        },
+      ],
+    },
+    {
+      "name": "water-to-light",
+      "ranges": [
+        {
+          "end": 24,
+          "offset": 70,
+          "start": 18,
+        },
+        {
+          "end": 94,
+          "offset": -7,
+          "start": 25,
+        },
+      ],
+    },
+    {
+      "name": "light-to-temperature",
+      "ranges": [
+        {
+          "end": 99,
+          "offset": -32,
+          "start": 77,
+        },
+        {
+          "end": 63,
+          "offset": 36,
+          "start": 45,
+        },
+        {
+          "end": 76,
+          "offset": 4,
+          "start": 64,
+        },
+      ],
+    },
+    {
+      "name": "temperature-to-humidity",
+      "ranges": [
+        {
+          "end": 69,
+          "offset": -69,
+          "start": 69,
+        },
+        {
+          "end": 68,
+          "offset": 1,
+          "start": 0,
+        },
+      ],
+    },
+    {
+      "name": "humidity-to-location",
+      "ranges": [
+        {
+          "end": 92,
+          "offset": 4,
+          "start": 56,
+        },
+        {
+          "end": 96,
+          "offset": -37,
+          "start": 93,
+        },
+      ],
+    },
+  ],
+  "seeds": [
+    79,
+    14,
+    55,
+    13,
+  ],
+}
+`;
