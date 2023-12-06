@@ -20,6 +20,12 @@ export const parseGames = (input: string): Game[] => {
   }));
 };
 
+export const parseSingleGames = (input: string): Game => {
+  const fixedInput = input.replaceAll(" ", "");
+  const duration = parseLine(fixedInput.split("\n")[0]!)[0]!;
+  const distanceToBeat = parseLine(fixedInput.split("\n")[1]!)[0]!;
+  return { duration, distanceToBeat };
+};
 export const countWinningCombinations = (game: Game): number => {
   let winningCombinationCount = 0;
   for (

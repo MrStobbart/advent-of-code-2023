@@ -3,6 +3,7 @@ import {
   calculateResultPart1,
   countWinningCombinations,
   parseGames,
+  parseSingleGames,
 } from "./day6";
 import { getInputForDay } from "./getInput";
 
@@ -46,5 +47,25 @@ describe("Part 1", () => {
 
   it("calculates the correct result", () => {
     expect(calculateResultPart1(input)).toBe(1731600);
+  });
+});
+
+describe("Part 2", () => {
+  it("parses the one game correctly", () => {
+    expect(parseSingleGames(testInput)).toEqual({
+      distanceToBeat: 940200,
+      duration: 71530,
+    });
+  });
+
+  it("calculates the correct test result", () => {
+    const game = parseSingleGames(testInput);
+
+    expect(countWinningCombinations(game)).toBe(71503);
+  });
+
+  it("calculates the correct result", () => {
+    const game = parseSingleGames(input);
+    expect(countWinningCombinations(game)).toBe(40087680);
   });
 });
