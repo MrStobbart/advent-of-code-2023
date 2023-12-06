@@ -88,15 +88,10 @@ seed-to-soil map:
   });
 });
 
-describe.only("Part 2", () => {
+describe("Part 2", () => {
   it("calculates the lowest location with seed ranges", () => {
     const almanac = parseAlmanac(testInput, seedParserPart2);
     expect(getLowestLocation(almanac)).toBe(46);
-  });
-
-  it.only("calculates the correct result", () => {
-    const alamanc = parseAlmanac(input, seedParserPart2);
-    expect(getLowestLocation(alamanc)).toBe(46);
   });
 
   it("calculates seed ranges correctly", () => {
@@ -104,5 +99,12 @@ describe.only("Part 2", () => {
       { start: 79, end: 79 },
       { start: 55, end: 56 },
     ]);
+  });
+
+  it.skip("calculates the correct result", () => {
+    const alamanc = parseAlmanac(input, seedParserPart2);
+    expect(getLowestLocation(alamanc)).toBe(6472060);
+
+    expect(true).toBe(false);
   });
 });

@@ -4,7 +4,7 @@ type PreparedMap = {
 };
 
 type SeedRange = { start: number; end: number };
-type Almanac = { seeds: SeedRange[]; maps: PreparedMap[] };
+type Almanac = { seedRanges: SeedRange[]; maps: PreparedMap[] };
 
 export const prepareMap = (rawMap: string): PreparedMap => {
   const lines = rawMap.split("\n");
@@ -58,20 +58,27 @@ export const parseAlmanac = (
     throw new Error("Input is faulty", input as unknown as any);
   }
   return {
-    seeds,
+    seedRanges: seeds,
     maps: maps.map((rawMap) => prepareMap(rawMap)),
   };
 };
 
-export const getLowestLocation = ({ seeds, maps }: Almanac): number => {
-  const locations: number[] = [];
-  seeds.flatMap(({ start, end }) => {
+export const getLowestLocation = ({
+  seedRanges: seeds,
+  maps,
+}: Almanac): number => {
+  let smallestLocation = Infinity;
+  seeds.forEach(({ start, end }, index) => {
     for (let seed = start; seed <= end; seed++) {
-      locations.push(maps.reduce((id, map) => getDestination(map, id), seed));
+      const location = maps.reduce((id, map) => getDestination(map, id), seed);
+
+      if (location < smallestLocation) {
+        smallestLocation = location;
+      }
     }
   });
 
-  return Math.min(...locations);
+  return smallestLocation;
 };
 
 export const seedParserPart2 = (seedLine: string): SeedRange[] => {
