@@ -26,6 +26,8 @@ export const parseSingleGames = (input: string): Game => {
   const distanceToBeat = parseLine(fixedInput.split("\n")[1]!)[0]!;
   return { duration, distanceToBeat };
 };
+
+// This could have been done mathematically
 export const countWinningCombinations = (game: Game): number => {
   let winningCombinationCount = 0;
   for (

@@ -65,6 +65,7 @@ describe("Part 2", () => {
   });
 
   it("calculates the correct result", () => {
+    // This could have been done mathematically
     const game = parseSingleGames(input);
     expect(countWinningCombinations(game)).toBe(40087680);
   });
