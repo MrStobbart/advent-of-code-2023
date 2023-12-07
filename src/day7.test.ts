@@ -1,12 +1,20 @@
 import { describe, expect, it } from "bun:test";
 import { getInputForDay } from "./getInput";
-import { Hand, compareCardValues, getHandValue, sortHands } from "./day7";
+import {
+  Hand,
+  cardsMapPart2,
+  compareCardValues,
+  getHandValuePart1,
+  getHandValuePart2,
+  sortHands,
+} from "./day7";
 
 const testInput = `32T3K 765
 T55J5 684
 KK677 28
 KTJJT 220
-QQQJA 483`;
+QQQJA 483
+JJJJJ 0`;
 
 const input = await getInputForDay(7);
 
@@ -60,7 +68,7 @@ describe("Part 1", () => {
   });
 
   it("gets the correc duplicates", () => {
-    expect(getHandValue("KTJJT")).toEqual({
+    expect(getHandValuePart1("KTJJT")).toEqual({
       ranking: 4,
       preparedHand: ["K", "T", "J", "J", "T"],
     });
@@ -68,5 +76,21 @@ describe("Part 1", () => {
 
   it("calculates the correct result", () => {
     expect(sortHands(input)).toBe(251121738);
+  });
+});
+
+describe.only("Part 2", () => {
+  it("calculates the testInput correctly", () => {
+    expect(sortHands(testInput, getHandValuePart2, cardsMapPart2)).toBe(5905);
+  });
+  it("calculates the correct result", () => {
+    expect(sortHands(input, getHandValuePart2, cardsMapPart2)).toBe(251661828);
+  });
+
+  it("getHandValuePart2 handles JJJJJ correctly", () => {
+    expect(getHandValuePart2("JJJJJ")).toEqual({
+      ranking: 0,
+      preparedHand: ["J", "J", "J", "J", "J"],
+    });
   });
 });

@@ -14,7 +14,7 @@ type Card =
   | "A";
 
 export type Hand = [Card, Card, Card, Card, Card];
-const cardsMap: Record<Card, number> = {
+const cardsMapPart1: Record<Card, number> = {
   "2": 2,
   "3": 3,
   "4": 4,
@@ -41,23 +41,11 @@ const possibleCombinations = [
 ];
 
 export const prepareHand = (hand: string): Hand => {
-  //   return hand.split("").sort((a, b) => {
-  //     const cardValueA = cardsMap[a as Card];
-  //     const cardValueB = cardsMap[b as Card];
-  //     if (cardValueA === undefined || cardValueB === undefined) {
-  //       throw new Error(`Hand ${hand} contains invalid cards`);
-  //     }
-  //     return cardValueB - cardValueA;
-  //   }) as Hand;
-
   return hand.split("") as Hand;
 };
 
-export const getHandValue = (hand: string) => {
+export const getHandValuePart1 = (hand: string) => {
   const preparedHand = prepareHand(hand);
-  //   if (hand.every((card) => card === hand[0])) {
-  //     return "fiveOfAKind";
-  //   }
 
   let cardCounts: Record<Card, number> = {
     "2": 0,
@@ -94,7 +82,8 @@ export const getHandValue = (hand: string) => {
 
 export const compareCardValues = (
   preparedHand: Hand,
-  otherPreparedHand: Hand
+  otherPreparedHand: Hand,
+  cardsMap = cardsMapPart1
 ): boolean => {
   for (let i = 0; i < preparedHand.length; i++) {
     const cardValue = cardsMap[preparedHand[i]!]!;
@@ -110,7 +99,11 @@ export const compareCardValues = (
   return false;
 };
 
-export const sortHands = (hands: string) => {
+export const sortHands = (
+  hands: string,
+  getHandValue = getHandValuePart1,
+  cardsMap = cardsMapPart1
+) => {
   const sortedHands = hands
     .split("\n")
     .map((handWithBid) => {
@@ -124,14 +117,87 @@ export const sortHands = (hands: string) => {
     .sort((a, b) => {
       const sort = a.ranking - b.ranking;
       if (sort === 0) {
-        return compareCardValues(a.preparedHand, b.preparedHand) ? -1 : 1;
+        return compareCardValues(a.preparedHand, b.preparedHand, cardsMap)
+          ? -1
+          : 1;
       }
       return sort;
     });
 
-  console.log(sortedHands);
-
   return sortedHands.reduce((totalWinnings, currHand, index) => {
     return totalWinnings + currHand.bid * (sortedHands.length - index);
   }, 0);
+};
+
+export const cardsMapPart2: Record<Card, number> = {
+  J: 1,
+  "2": 2,
+  "3": 3,
+  "4": 4,
+  "5": 5,
+  "6": 6,
+  "7": 7,
+  "8": 8,
+  "9": 9,
+  T: 10,
+  Q: 11,
+  K: 12,
+  A: 13,
+};
+
+export const getHandValuePart2 = (hand: string) => {
+  const preparedHand = prepareHand(hand);
+
+  let jokers = 0;
+  let cardCounts: Record<Card, number> = {
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    T: 0,
+    J: 0,
+    Q: 0,
+    K: 0,
+    A: 0,
+  };
+
+  preparedHand.forEach((card) => {
+    if (card === "J") {
+      jokers++;
+    } else {
+      cardCounts[card]++;
+    }
+  });
+
+  let sortedCardCounts = Object.values(cardCounts)
+    .filter((cardCount) => cardCount)
+    .sort((a, b) => b - a)
+    .map((cardCount, index) => {
+      if (index === 0) {
+        return cardCount + jokers;
+      }
+      return cardCount;
+    })
+    .sort((a, b) => b - a);
+
+  if (hand === "JJJJJ") {
+    sortedCardCounts = [5];
+  }
+
+  const sortedCardCountsJson = JSON.stringify(sortedCardCounts);
+  const ranking = possibleCombinations.findIndex(
+    (possibleCombination) =>
+      JSON.stringify(possibleCombination) === sortedCardCountsJson
+  );
+
+  if (ranking === -1) {
+    console.error(sortedCardCounts);
+    throw new Error(`hand ${hand} could not get a ranking`);
+  }
+
+  return { ranking, preparedHand };
 };
