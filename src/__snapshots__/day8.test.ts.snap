@@ -6,7 +6,7 @@ exports[`Part1 parses the testinput1 correctly 1`] = `
     "R",
     "L",
   ],
-  "nodes": {
+  "nodeMap": {
     "AAA": {
       "L": "BBB",
       "R": "CCC",
@@ -43,6 +43,5 @@ exports[`Part1 parses the testinput1 correctly 1`] = `
       "name": "ZZZ",
     },
   },
-  "startNodeName": "AAA",
 }
 `;
