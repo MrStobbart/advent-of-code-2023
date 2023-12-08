@@ -1,0 +1,48 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Part1 parses the testinput1 correctly 1`] = `
+{
+  "directions": [
+    "R",
+    "L",
+  ],
+  "nodes": {
+    "AAA": {
+      "L": "BBB",
+      "R": "CCC",
+      "name": "AAA",
+    },
+    "BBB": {
+      "L": "DDD",
+      "R": "EEE",
+      "name": "BBB",
+    },
+    "CCC": {
+      "L": "ZZZ",
+      "R": "GGG",
+      "name": "CCC",
+    },
+    "DDD": {
+      "L": "DDD",
+      "R": "DDD",
+      "name": "DDD",
+    },
+    "EEE": {
+      "L": "EEE",
+      "R": "EEE",
+      "name": "EEE",
+    },
+    "GGG": {
+      "L": "GGG",
+      "R": "GGG",
+      "name": "GGG",
+    },
+    "ZZZ": {
+      "L": "ZZZ",
+      "R": "ZZZ",
+      "name": "ZZZ",
+    },
+  },
+  "startNodeName": "AAA",
+}
+`;

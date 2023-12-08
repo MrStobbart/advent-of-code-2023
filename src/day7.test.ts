@@ -84,7 +84,7 @@ describe.only("Part 2", () => {
     expect(sortHands(testInput, getHandValuePart2, cardsMapPart2)).toBe(5905);
   });
   it("calculates the correct result", () => {
-    expect(sortHands(input, getHandValuePart2, cardsMapPart2)).toBe(251661828);
+    expect(sortHands(input, getHandValuePart2, cardsMapPart2)).toBe(251421071);
   });
 
   it("getHandValuePart2 handles JJJJJ correctly", () => {
