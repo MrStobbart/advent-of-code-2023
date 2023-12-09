@@ -1,7 +1,9 @@
 export const getNextValueInSequence = (sequence: number[]): number => {
-  return createNextSequences([sequence]).reduce((acc, sequence) => {
-    return acc + sequence.pop()!;
-  }, 0);
+  return createNextSequences([sequence])
+    .reverse()
+    .reduce((previousLast, sequence) => {
+      return sequence.pop()! + previousLast;
+    }, 0);
 };
 
 export const createNextSequences = (sequences: number[][]): number[][] => {
@@ -26,13 +28,22 @@ export const createNextSequences = (sequences: number[][]): number[][] => {
   return createNextSequences(sequences);
 };
 
-export const parseSequencesPart1 = (input: string): number => {
+export const parseSequences = (
+  input: string,
+  getNextValue = getNextValueInSequence
+): number => {
   return input
     .split("\n")
     .map((sequenceString) =>
       sequenceString.split(" ").map((entry) => parseInt(entry))
     )
-    .reduce((acc, sequence) => {
-      return acc + getNextValueInSequence(sequence);
+    .reduce((acc, sequence) => acc + getNextValue(sequence), 0);
+};
+
+export const getPreviousValueInSequence = (sequence: number[]): number => {
+  return createNextSequences([sequence])
+    .reverse()
+    .reduce((previousFirst, sequence) => {
+      return sequence.shift()! - previousFirst;
     }, 0);
 };
