@@ -25,7 +25,7 @@ describe("Part 1", () => {
   it.each([
     { input: testInput1, steps: 4 },
     { input: testInput2, steps: 8 },
-    { input: input, steps: 4 },
+    { input: input, steps: 6842 },
   ])(
     "calculats the correct number of steps through the pipes to the farthest point",
     ({ input, steps }) => {
@@ -65,7 +65,7 @@ describe("Part 1", () => {
     it("creates a new position correctly", () => {
       expect(
         getNewPositionForConnection("east", { line: 1, index: 1 })
-      ).toEqual({ line: 1, index: 2 });
+      ).toEqual({ newPosition: { line: 1, index: 2 }, from: "west" });
     });
   });
 });
