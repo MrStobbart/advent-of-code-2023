@@ -4,7 +4,7 @@ import {
   getGalaxyPositions,
   getShortestPathBetweenPositions,
   inputTo2dArray,
-  sumPositionDistances,
+  sumDistance,
 } from "./day11";
 import { getInputForDay } from "./getInput";
 
@@ -64,22 +64,26 @@ describe("Part 1", () => {
   });
 
   it("expands the input correctly", () => {
-    expect(expandInput(inputTo2dArray(testInput))).toEqual(
-      inputTo2dArray(testInputExpanded)
-    );
+    expect(expandInput(inputTo2dArray(testInput))).toEqual({
+      observation: inputTo2dArray(testInput),
+      emptyColumnIndizes: [2, 5, 8],
+      emptyRowIndizes: [3, 7],
+    });
   });
 
-  it("expands the input correctly", () => {
-    expect(getGalaxyPositions(expandInput(inputTo2dArray(testInput)))).toEqual([
-      { column: 4, row: 0 },
-      { column: 9, row: 1 },
+  it("gets the correct galaxy positions", () => {
+    expect(
+      getGalaxyPositions(expandInput(inputTo2dArray(testInput)).observation)
+    ).toEqual([
+      { column: 3, row: 0 },
+      { column: 7, row: 1 },
       { column: 0, row: 2 },
-      { column: 8, row: 5 },
-      { column: 1, row: 6 },
-      { column: 12, row: 7 },
-      { column: 9, row: 10 },
-      { column: 0, row: 11 },
-      { column: 5, row: 11 },
+      { column: 6, row: 4 },
+      { column: 1, row: 5 },
+      { column: 9, row: 6 },
+      { column: 7, row: 8 },
+      { column: 0, row: 9 },
+      { column: 4, row: 9 },
     ]);
   });
 
@@ -87,45 +91,85 @@ describe("Part 1", () => {
     {
       position1: { column: 6, row: 1 },
       position2: { column: 11, row: 5 },
+      emptyIndizes: { emptyColumnIndizes: [5, 7], emptyRowIndizes: [0, 4] },
+      emptyIndexFactor: 1,
       distance: 9,
+    },
+    {
+      position1: { column: 6, row: 1 },
+      position2: { column: 11, row: 5 },
+      emptyIndizes: { emptyColumnIndizes: [5, 7], emptyRowIndizes: [0, 4] },
+      emptyIndexFactor: 10,
+      distance: 27,
+    },
+    {
+      position1: { column: 6, row: 1 },
+      position2: { column: 11, row: 5 },
+      emptyIndizes: { emptyColumnIndizes: [6, 7], emptyRowIndizes: [0, 4] },
+      emptyIndexFactor: 100,
+      distance: 207,
     },
     {
       position1: { column: 0, row: 3 },
       position2: { column: 1, row: 7 },
+      emptyIndizes: { emptyColumnIndizes: [], emptyRowIndizes: [] },
+      emptyIndexFactor: 1,
       distance: 5,
     },
     {
       position1: { column: 6, row: 1 },
       position2: { column: 6, row: 1 },
+      emptyIndizes: { emptyColumnIndizes: [], emptyRowIndizes: [] },
+      emptyIndexFactor: 1,
       distance: 0,
+    },
+    {
+      position1: { column: 3, row: 1 },
+      position2: { column: 1, row: 1 },
+      emptyIndizes: { emptyColumnIndizes: [2], emptyRowIndizes: [] },
+      emptyIndexFactor: 2,
+      distance: 3,
+    },
+    {
+      position1: { column: 3, row: 1 },
+      position2: { column: 1, row: 1 },
+      emptyIndizes: { emptyColumnIndizes: [2], emptyRowIndizes: [] },
+      emptyIndexFactor: 1,
+      distance: 2,
     },
   ])(
     "getShortestPathBetweenPositions",
-    ({ position1, position2, distance }) => {
-      expect(getShortestPathBetweenPositions(position1, position2)).toBe(
-        distance
-      );
+    ({ position1, position2, distance, emptyIndizes, emptyIndexFactor }) => {
+      expect(
+        getShortestPathBetweenPositions(
+          position1,
+          position2,
+          emptyIndizes,
+          emptyIndexFactor
+        )
+      ).toBe(distance);
     }
   );
 
   it("sums the galaxy distances correctly for the testInput", () => {
-    const positions = getGalaxyPositions(
-      expandInput(inputTo2dArray(testInput))
-    );
-    expect(sumPositionDistances(positions)).toBe(374);
+    expect(sumDistance(testInput, 2)).toBe(374);
   });
 
   it("sums the galaxy distances correctly", () => {
-    const positions = getGalaxyPositions(expandInput(inputTo2dArray(input)));
-    expect(sumPositionDistances(positions)).toBe(10313550);
+    expect(sumDistance(input, 2)).toBe(10313550);
   });
 });
 
 describe("part2", () => {
-  it("sums the galaxy distances correctly for the testInput", () => {
-    const positions = getGalaxyPositions(
-      expandInput(inputTo2dArray(testInput))
-    );
-    expect(sumPositionDistances(positions)).toBe(374);
+  it("sums the galaxy distances correctly for the testInput (10 times)", () => {
+    expect(sumDistance(testInput, 10)).toBe(1030);
+  });
+
+  it("sums the galaxy distances correctly for the testInput (100 times)", () => {
+    expect(sumDistance(testInput, 100)).toBe(8410);
+  });
+
+  it("sums the galaxy distances correctly ", () => {
+    expect(sumDistance(input, 1000000)).toBe(611998089572);
   });
 });
