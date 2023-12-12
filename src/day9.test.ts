@@ -62,7 +62,7 @@ describe("Part 1", () => {
   });
 });
 
-describe.only("Part 2", () => {
+describe("Part 2", () => {
   it("Parses the testInput correctly", () => {
     expect(parseSequences(testInput, getPreviousValueInSequence)).toBe(2);
   });

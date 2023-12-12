@@ -29,7 +29,7 @@ export const countStepsThroughTheLoop = (tyleMap: TyleMap): number => {
   const startIndex = tyleMap[startLine]!.findIndex((row) => row === "S");
   for (let i = 0; i < possibleConnections.length; i++) {
     const to = possibleConnections[i]!;
-    console.log("Possible connections", to);
+    // console.log("Possible connections", to);
     // const from = getConnectionOpposite(to);
     const { newPosition, from } = getNewPositionForConnection(to, {
       line: startLine,
@@ -108,9 +108,9 @@ export const walkThroughMap = (
   const connections = tyleConnections[symbol];
 
   if (symbol === ".") {
-    console.log(
-      `The pipe reached a dead end at line:${position.line}, index:${position.index} connected from ${connectedFrom}`
-    );
+    // console.log(
+    //   `The pipe reached a dead end at line:${position.line}, index:${position.index} connected from ${connectedFrom}`
+    // );
     return 0;
   }
 
@@ -120,9 +120,9 @@ export const walkThroughMap = (
 
   if (connections && connectedFrom) {
     if (!connections.includes(connectedFrom)) {
-      console.log(
-        `The pipe ${symbol} cannot be connected from ${connectedFrom}`
-      );
+      // console.log(
+      //   `The pipe ${symbol} cannot be connected from ${connectedFrom}`
+      // );
       return 0;
     }
     const to = connections.find((connection) => connection !== connectedFrom)!;

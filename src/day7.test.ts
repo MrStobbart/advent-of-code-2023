@@ -79,7 +79,7 @@ describe("Part 1", () => {
   });
 });
 
-describe.only("Part 2", () => {
+describe("Part 2", () => {
   it("calculates the testInput correctly", () => {
     expect(sortHands(testInput, getHandValuePart2, cardsMapPart2)).toBe(5905);
   });
